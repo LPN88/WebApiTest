@@ -18,10 +18,7 @@ namespace WebApiTest
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",               
                 defaults: new { controller = "Values", action = "GetTest", id = RouteParameter.Optional }
-            );
-            //var container = new UnityContainer();
-            //container.RegisterType<IMetricsR3, MetricsR3>();
-            //config.DependencyResolver = new UnityDependencyResolver(container);
+            );         
         }
     }
 }

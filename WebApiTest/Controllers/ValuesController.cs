@@ -60,8 +60,7 @@ namespace WebApiTest.Controllers
             Trace.WriteLine(str.ToString());
             var resp = new HttpResponseMessage(HttpStatusCode.OK);
             resp.Content = new StringContent(task4.Result[0].StatusCode == HttpStatusCode.OK ? "Вся цепочка методов выполнилась" : "Выполнились только 4 метода");
-            return resp;
-            //return Request.CreateResponse(HttpStatusCode.OK, task4.Result[0].StatusCode == HttpStatusCode.OK ? "Вся цепочка методов выполнилась" : "Выполнились только 4 метода");            
+            return resp;                       
         }
 
         [HttpGet]
@@ -123,14 +122,11 @@ namespace WebApiTest.Controllers
         }
 
         // POST api/values
-        [HttpPost]
-        //[System.Web.Mvc.AsyncTimeout(10)]      
+        [HttpPost]        
         public async Task<HttpResponseMessage> Search([FromBody]string value)
         {
             HttpResponseMessage resp = null;
-            var ee = Request;
-            //var cts = new CancellationTokenSource();
-            //cts.CancelAfter(11000);            
+            var ee = Request;                      
             try
             {
                 var delayTask = Task.Delay(11000);
@@ -148,14 +144,12 @@ namespace WebApiTest.Controllers
             catch (OperationCanceledException ex)
             {
                 resp = new HttpResponseMessage(HttpStatusCode.RequestTimeout);
-                resp.Content = new StringContent("Произошел таймаут запроса (11000 мс)");
-                //this.Request.CreateResponse(HttpStatusCode.RequestTimeout, "Произошел таймаут запроса (11000 мс)");                
+                resp.Content = new StringContent("Произошел таймаут запроса (11000 мс)");                            
             }
             catch (Exception ex)
             {
                 resp = new HttpResponseMessage(HttpStatusCode.InternalServerError);
-                resp.Content = new StringContent("Произошла ошибка во время выполнения запроса");
-                //resp = this.Request.CreateResponse(HttpStatusCode.InternalServerError, "Произошла ошибка во время выполнения запроса");
+                resp.Content = new StringContent("Произошла ошибка во время выполнения запроса");                
             }
             return resp;
         }
